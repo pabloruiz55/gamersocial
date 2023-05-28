@@ -3,8 +3,11 @@ import {
   Moon,
   SunMedium,
   Twitter,
+  Loader2,
   type Icon as LucideIcon,
 } from "lucide-react"
+
+import { BsDiscord, BsGoogle } from "react-icons/bs";
 
 export type Icon = LucideIcon
 
@@ -12,6 +15,9 @@ export const Icons = {
   sun: SunMedium,
   moon: Moon,
   twitter: Twitter,
+  spinner: Loader2,
+  discord: BsDiscord,
+  google: BsGoogle,
   logo: (props: LucideProps) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
