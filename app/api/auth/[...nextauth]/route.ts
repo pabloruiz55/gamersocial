@@ -13,6 +13,12 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.GOOGLE_SECRET as string,
     }),
   ],
+  debug: process.env.NODE_ENV === 'development',
+  session: {
+      strategy: "jwt",
+      maxAge: 60 * 60 * 24 * 2
+  },
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 const handler = NextAuth(authOptions);
