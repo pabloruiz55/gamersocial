@@ -1,4 +1,4 @@
-import { UserAuthForm } from "./components/user-auth-form"
+import { UserAuthForm } from "./user-auth-form"
 import Link from "next/link"
 
 const RegistrationForm = () => {

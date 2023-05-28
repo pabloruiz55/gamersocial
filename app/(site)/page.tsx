@@ -2,7 +2,7 @@ import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
-import RegistrationForm from "@/components/registration/registrationForm"
+import RegistrationForm from "@/app/components/registration/registrationForm"
 
 export default function IndexPage() {
   return (
