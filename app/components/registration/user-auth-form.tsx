@@ -101,7 +101,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         </Button>
 
         <Button className="w-full" variant="outline" type="button" disabled={isLoading}
-            onClick={() => socialAction('google')}
+            onClick={() => socialAction('discord')}
         >
             {isLoading ? (
             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
