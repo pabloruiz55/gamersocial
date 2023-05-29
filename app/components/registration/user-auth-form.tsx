@@ -52,6 +52,25 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     .finally(() => setIsLoading(false));
 }
 
+const emailAction = (email:string) => {
+  setIsLoading(true);
+
+  signIn("email", {
+      email,
+      redirect: false
+  })
+  .then((callback) => {
+      if(callback?.error){
+          //toast.error("Invalid credentials");
+          console.log("Invalid credentials")
+      }else if(callback?.ok){
+          //toast.success("Logged in");
+          console.log("Logged in");
+      }
+  })
+  .finally(() => setIsLoading(false));
+}
+
   return (
     <div className={cn("grid gap-6", className)} {...props}>
       <form onSubmit={onSubmit}>
@@ -70,7 +89,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               disabled={isLoading}
             />
           </div>
-          <Button disabled={isLoading}>
+          <Button disabled={isLoading}
+           onClick={() => emailAction('pabloruiz55@gmail.com')}
+           >
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
