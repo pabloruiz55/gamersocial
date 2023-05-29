@@ -11,6 +11,18 @@ import { Icons } from "@/components/icons"
 import { signIn, useSession } from "next-auth/react"
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -19,15 +31,27 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
+  const formSchema = z.object({
+    email: z.string().email()
+  })
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+    },
+  })
+
   useEffect(() => {
     if(session?.status === 'authenticated'){
         router.push('/home');
     }
 }, [session?.status, router]);
 
-  async function onSubmit(event: React.SyntheticEvent) {
-    event.preventDefault()
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true)
+
+    emailAction(values.email);
 
     setTimeout(() => {
       setIsLoading(false)
@@ -57,7 +81,7 @@ const emailAction = (email:string) => {
 
   signIn("email", {
       email,
-      redirect: false
+      redirect: true
   })
   .then((callback) => {
       if(callback?.error){
@@ -65,6 +89,7 @@ const emailAction = (email:string) => {
           console.log("Invalid credentials")
       }else if(callback?.ok){
           //toast.success("Logged in");
+          console.log(callback)
           console.log("Logged in");
       }
   })
@@ -73,32 +98,33 @@ const emailAction = (email:string) => {
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
-      <form onSubmit={onSubmit}>
-        <div className="grid gap-2">
-          <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="email">
-              Email
-            </Label>
-            <Input
-              id="email"
-              placeholder="name@example.com"
-              type="email"
-              autoCapitalize="none"
-              autoComplete="email"
-              autoCorrect="off"
-              disabled={isLoading}
-            />
-          </div>
-          <Button disabled={isLoading}
-           onClick={() => emailAction('pabloruiz55@gmail.com')}
-           >
-            {isLoading && (
-              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Enter your email</FormLabel>
+                <FormControl>
+                  <Input className="flex w-full" placeholder="shadcn" {...field} />
+                </FormControl>
+                <FormDescription>
+                  This is your public display name.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
             )}
-            Sign In with Email
+          />
+          <Button className="flex w-full mt-4" type="submit">
+          {isLoading ? (
+            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              "Submit"
+            )}
           </Button>
-        </div>
-      </form>
+        </form>
+      </Form>
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
