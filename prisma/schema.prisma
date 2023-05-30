@@ -45,6 +45,10 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  posts         Post[]
+
+  likedPostsIds String[] @db.ObjectId
+  likedPosts Post[] @relation("Likes", fields: [likedPostsIds], references: [id])
 }
 
 model VerificationToken {
@@ -54,4 +58,17 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Post {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  body          String?
+  image         String?
+  createdAt     DateTime @default(now())
+
+  userId        String   @db.ObjectId
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  likesIds      String[] @db.ObjectId
+  likes         User[] @relation("Likes", fields: [likesIds], references: [id])
 }
