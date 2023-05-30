@@ -6,7 +6,7 @@ export default async function ConversationsLayout({
   children: React.ReactNode,
 }) {
   return (
-    <div className="flex w-screen justify-center">
+    <div className="flex w-screen h-screen justify-center">
      <div className="flex h-full w-[1400px]">
         {// @ts-expect-error Server Component
         }<Sidebar/>
