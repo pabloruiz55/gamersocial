@@ -8,12 +8,9 @@ async function Sidebar({children}:{
     const currentUser = await getCurrentUser();
 
     return (
-        <div className="flex justify-center w-full h-screen">
+        <div className="flex justify-start">
             <DesktopSidebar currentUser={currentUser!} />
             <MobileFooter />
-            <main className="flex justify-start w-2/3 h-full">
-                {children}
-            </main>
         </div>
     )
 }

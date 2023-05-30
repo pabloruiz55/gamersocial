@@ -22,9 +22,9 @@ const DesktopSidebar: React.FC<DesktopSiderbarProps> = (
             <div className="
                 hidden
                 md:flex
-                justify-end
-                w-1/3 h-full
-                border-r-2"
+                h-full
+                border-r-2
+                "
             >
                 <nav
                     className="
@@ -32,7 +32,8 @@ const DesktopSidebar: React.FC<DesktopSiderbarProps> = (
                         flex
                         flex-col
                         justify-between
-                        w-40
+                        lg:w-40
+                        w-auto
                     "
                 >
                     <ul

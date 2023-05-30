@@ -43,7 +43,7 @@ const DesktopItem: React.FC<DesktopItemProps> = ({
           )}
       >
         <Icon className="h-6 w-6 shrink-0" aria-hidden="true" />
-        {label.length > 0 && <span>{label}</span>}
+        {label.length > 0 && <span className='hidden lg:flex'>{label}</span>}
       </Link>
     </li>
    );
