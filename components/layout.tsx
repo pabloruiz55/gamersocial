@@ -1,3 +1,4 @@
+'use client';
 import { SiteHeader } from "@/components/site-header"
 
 interface LayoutProps {
@@ -7,7 +8,8 @@ interface LayoutProps {
 export function Layout({ children }: LayoutProps) {
   return (
     <>
-      <SiteHeader />
+      {/* @ts-expect-error Server Component
+      */}<SiteHeader />
       <main>{children}</main>
     </>
   )
