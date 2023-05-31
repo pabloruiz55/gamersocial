@@ -12,14 +12,14 @@ const useRoutes = () => {
     { 
         key: 1,
         label: '', 
-        href: '/feed', 
+        href: '/home', 
         icon: Icons.logo,
         active: pathname === '/feed'
       },
     { 
       key: 2,
       label: 'Feed', 
-      href: '/feed', 
+      href: '/home', 
       icon: HiChat,
       active: pathname === '/feed'
     },
