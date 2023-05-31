@@ -7,7 +7,7 @@ export default async function ConversationsLayout({
 }) {
   return (
     <div className="flex w-screen h-screen justify-center">
-     <div className="flex h-full w-[1400px]">
+     <div className="flex h-full w-[1000px]">
         {// @ts-expect-error Server Component
         }<Sidebar/>
         <main className="flex w-full justify-start">

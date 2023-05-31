@@ -24,6 +24,7 @@ const DesktopSidebar: React.FC<DesktopSiderbarProps> = (
                 md:flex
                 h-full
                 border-r
+                justify-end
                 "
             >
                 <nav
