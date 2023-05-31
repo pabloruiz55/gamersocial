@@ -9,7 +9,7 @@ const FeedItem: React.FC<FeedItemProps> = ({
   data
 }) => {
   return (
-    <div className="flex w-full border-t min-h-[100px] p-4">
+    <div className="flex w-full border-t min-h-[100px] p-4 break-all">
       {data?.body}
     </div>
   )

@@ -35,6 +35,7 @@ const DesktopSidebar: React.FC<DesktopSiderbarProps> = (
                         justify-between
                         lg:w-40
                         w-auto
+                        fixed
                     "
                 >
                     <ul

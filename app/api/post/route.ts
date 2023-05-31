@@ -8,6 +8,7 @@ export async function GET(
   try {
     const currentUser = await getCurrentUser();
     const allPosts = await prisma.post.findMany({
+      orderBy: {createdAt: "desc"},
       include: {
         user: true,
       },
