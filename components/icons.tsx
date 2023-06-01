@@ -4,6 +4,7 @@ import {
   SunMedium,
   Twitter,
   Loader2,
+  Image,
   type Icon as LucideIcon,
 } from "lucide-react"
 
@@ -20,6 +21,7 @@ export const Icons = {
   discord: BsDiscord,
   google: BsGoogle,
   menu: FiMenu,
+  image: Image,
   logo: (props: LucideProps) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path

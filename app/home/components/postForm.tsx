@@ -19,6 +19,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { Icons } from "@/components/icons";
 
 const PostForm = () => {
   const postTextareaRef = useRef<HTMLTextAreaElement>(null);
@@ -46,6 +47,9 @@ const PostForm = () => {
   const formSchema = z.object({
     post: 
       z.string()
+      .min(1, {
+        message: "Post can't be empty",
+      })
       .max(500, {
         message: "Post must not be longer than 500 characters.",
       })
@@ -97,8 +101,15 @@ const PostForm = () => {
                 </FormItem>
               )}
             />
-            <div className="flex w-full pt-4 justify-end border-t">
-              <Button className="w-20" type="submit">Submit</Button>
+            <div className="flex w-full justify-between pt-4 border-t items-center">
+              <div className="flex">
+                <Button variant={"outline"} size={"sm"} className="w-10 h-10 p-0 border-0 rounded-full text-cyan-500">
+                  <Icons.image />
+                </Button>
+              </div>
+              <div className="flex w-full justify-end">
+                <Button className="w-20" type="submit" disabled={!form.formState.isValid}>Submit</Button>
+              </div>
             </div>
           </form>
         </Form>
