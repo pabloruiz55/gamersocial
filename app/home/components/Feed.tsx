@@ -23,8 +23,8 @@ const Feed = () => {
   return (
     <>
       <div className="flex flex-col w-full border-r">
-        <div className="flex flex-col w-full pl-4 pr-4">
-          <h1 className="flex w-full text-2xl font-extrabold leading-tight tracking-tighter sm:text-2xl md:text-2xl lg:text-2xl pt-4">Feed</h1>
+        <div className="flex flex-col w-full">
+          <h1 className="flex w-full text-2xl font-extrabold leading-tight tracking-tighter sm:text-2xl md:text-2xl lg:text-2xl m-2 ml-4">Feed</h1>
             <PostForm/>
             <div className="flex flex-col w-full">
               {posts?.map((post, i) => (

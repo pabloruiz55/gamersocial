@@ -70,13 +70,13 @@ const PostForm = () => {
   }
 
   return (
-    <div className="flex w-full">
-      <div className="flex w-14 p-2">
+    <div className="flex w-full pl-4 pr-4">
+      <div className="flex w-14">
         <div className="w-10 h-10 rounded-full bg-slate-200">
 
         </div>
       </div>
-      <div className="flex w-full p-2">
+      <div className="flex w-full">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="w-full mt-2 mb-4">
             <FormField
