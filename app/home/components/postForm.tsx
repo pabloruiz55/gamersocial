@@ -7,7 +7,6 @@ import * as z from "zod"
  
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
-import { Separator } from "@/components/ui/separator"
 import axios from 'axios';
 import React, {useState, useRef, ChangeEvent } from 'react'
 import {
@@ -20,17 +19,26 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Icons } from "@/components/icons";
+import { CldUploadButton } from "next-cloudinary";
+import { FullPostType } from "@/types";
 
-const PostForm = () => {
+interface FeedProps {
+  onPosted: () => void;
+}
+
+const PostForm: React.FC<FeedProps> = ({ 
+  onPosted 
+}) => {
   const postTextareaRef = useRef<HTMLTextAreaElement>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [postImageURL, setPostImageURL] = useState("");
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
 
     axios.post(`/api/post`, {
       body: values.post,
-      image: ""
+      image: postImageURL
     })
     .then((response) => {
         //router.push('/conversations');
@@ -41,7 +49,15 @@ const PostForm = () => {
     })
     .catch((error) => console.log(error))
     //.catch(() => toast.error('Something went wrong!'))
-    .finally(() => setIsLoading(false))
+    .finally(() => {
+      setIsLoading(false)
+      onPosted();
+      setPostImageURL("");
+    })
+  }
+
+  const handleUpload = (result: any) => {
+    setPostImageURL(result.info.secure_url);
   }
 
   const formSchema = z.object({
@@ -103,9 +119,14 @@ const PostForm = () => {
             />
             <div className="flex w-full justify-between pt-4 border-t items-center">
               <div className="flex">
-                <Button variant={"outline"} size={"sm"} className="w-10 h-10 p-0 border-0 rounded-full text-cyan-500">
-                  <Icons.image />
-                </Button>
+              <CldUploadButton 
+                //className="w-10 h-10 p-0 border-0 rounded-full text-cyan-500"
+                options={{ maxFiles: 1 }} 
+                onUpload={handleUpload} 
+                uploadPreset="p4ti5rlb"
+              >
+                <Icons.image />
+              </CldUploadButton>
               </div>
               <div className="flex w-full justify-end">
                 <Button className="w-20" type="submit" disabled={!form.formState.isValid}>Submit</Button>

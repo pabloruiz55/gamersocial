@@ -10,6 +10,10 @@ const Feed = () => {
   const [posts, setPosts] = useState([]);
   
   useEffect(() =>{
+    getPosts();
+  },[]);
+
+  const getPosts = () => {
     axios.get('/api/post')
       .then((response: AxiosResponse) => {
         setPosts(response.data)
@@ -18,14 +22,18 @@ const Feed = () => {
         console.log(error);
       })
       .finally(() => {});
-  },[posts]);
+  }
+
+  const onPosted = () => {
+    getPosts();
+  }
 
   return (
     <>
       <div className="flex flex-col w-full border-r">
         <div className="flex flex-col w-full">
           <h1 className="flex w-full text-2xl font-extrabold leading-tight tracking-tighter sm:text-2xl md:text-2xl lg:text-2xl m-2 ml-4">Feed</h1>
-            <PostForm/>
+            <PostForm onPosted={onPosted} />
             <div className="flex flex-col w-full">
               {posts?.map((post, i) => (
                 <FeedItem
