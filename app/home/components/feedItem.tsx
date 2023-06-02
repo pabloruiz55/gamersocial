@@ -2,6 +2,7 @@
 import { FullPostType } from '@/types/index';
 import { format, formatDistanceToNow } from "date-fns";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import ImageDisplay from './imageDisplay';
 
 interface FeedItemProps {
   data: FullPostType;
@@ -26,6 +27,7 @@ const FeedItem: React.FC<FeedItemProps> = ({
         <div className="flex w-full break-all">
           <p className="text-sm">{data?.body}</p>
         </div>
+        <ImageDisplay imageUrl={data.image} editMode={false} />
       </div>
     </div>
   )

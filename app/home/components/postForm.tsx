@@ -22,6 +22,7 @@ import { Icons } from "@/components/icons";
 import { CldUploadButton } from "next-cloudinary";
 import Image from "next/image"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
+import ImageDisplay from "./imageDisplay";
 
 interface FeedProps {
   onPosted: () => void;
@@ -119,24 +120,7 @@ const PostForm: React.FC<FeedProps> = ({
                 </FormItem>
               )}
             />
-            {postImageURL.length >0 && 
-              <div className="flex w-full h-max mb-4 relative">
-                <AspectRatio ratio={16 / 9}>
-                  <Image
-                    src={postImageURL}
-                    alt="Attached image"
-                    className="flex rounded-md object-cover w-full h-full"
-                    height={1024}
-                    width={768}
-                  />
-                </AspectRatio>
-                <Button variant={"secondary"} className="absolute rounded-full left-2 top-2 p-0 w-10 h-10"
-                  onClick={deletePostImage}
-                >
-                  <Icons.close />
-                </Button>
-              </div>
-            }
+            <ImageDisplay imageUrl={postImageURL} editMode={true} deletePostImage={deletePostImage} />
             <div className="flex w-full justify-between pt-4 border-t items-center">
               <div className="flex">
               <CldUploadButton 
