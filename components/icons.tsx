@@ -5,6 +5,7 @@ import {
   Twitter,
   Loader2,
   Image,
+  X,
   type Icon as LucideIcon,
 } from "lucide-react"
 
@@ -22,6 +23,7 @@ export const Icons = {
   google: BsGoogle,
   menu: FiMenu,
   image: Image,
+  close: X,
   logo: (props: LucideProps) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path

@@ -20,7 +20,8 @@ import {
 } from "@/components/ui/form"
 import { Icons } from "@/components/icons";
 import { CldUploadButton } from "next-cloudinary";
-import { FullPostType } from "@/types";
+import Image from "next/image"
+import { AspectRatio } from "@/components/ui/aspect-ratio"
 
 interface FeedProps {
   onPosted: () => void;
@@ -79,14 +80,18 @@ const PostForm: React.FC<FeedProps> = ({
   })
 
   const onHandleInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    adjustTextareaSize(e.target.scrollHeight)
+    adjustTextareaSize()
   };
 
-  function adjustTextareaSize(size: number){
+  function adjustTextareaSize(){
     if (postTextareaRef.current) {
-      postTextareaRef.current.style.height = "5px";
-      postTextareaRef.current.style.height = `${size}px`;
+      postTextareaRef.current.style.height = "0px";
+      postTextareaRef.current.style.height = (postTextareaRef.current.scrollHeight)+"px";
     }
+  }
+
+  const deletePostImage = () => {
+    setPostImageURL("");
   }
 
   return (
@@ -117,10 +122,27 @@ const PostForm: React.FC<FeedProps> = ({
                 </FormItem>
               )}
             />
+            {postImageURL.length >0 && 
+              <div className="flex w-full h-max mb-4 relative">
+                <AspectRatio ratio={16 / 9}>
+                  <Image
+                    src={postImageURL}
+                    alt="Attached image"
+                    className="flex rounded-md object-cover w-full h-full"
+                    height={1024}
+                    width={768}
+                  />
+                </AspectRatio>
+                <Button variant={"secondary"} className="absolute rounded-full left-2 top-2 p-0 w-10 h-10"
+                  onClick={deletePostImage}
+                >
+                  <Icons.close />
+                </Button>
+              </div>
+            }
             <div className="flex w-full justify-between pt-4 border-t items-center">
               <div className="flex">
               <CldUploadButton 
-                //className="w-10 h-10 p-0 border-0 rounded-full text-cyan-500"
                 options={{ maxFiles: 1 }} 
                 onUpload={handleUpload} 
                 uploadPreset="p4ti5rlb"
