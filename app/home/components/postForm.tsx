@@ -42,14 +42,11 @@ const PostForm: React.FC<FeedProps> = ({
       image: postImageURL
     })
     .then((response) => {
-        //router.push('/conversations');
-        //router.refresh();
         form.reset();
-        adjustTextareaSize(32);
+        adjustTextareaSize();
         console.log(response);
     })
     .catch((error) => console.log(error))
-    //.catch(() => toast.error('Something went wrong!'))
     .finally(() => {
       setIsLoading(false)
       onPosted();
