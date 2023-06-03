@@ -1,6 +1,5 @@
 'use client';
 
-import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -12,17 +11,16 @@ import React, {useState, useRef, ChangeEvent } from 'react'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import { Icons } from "@/components/icons";
 import { CldUploadButton } from "next-cloudinary";
-import Image from "next/image"
-import { AspectRatio } from "@/components/ui/aspect-ratio"
 import ImageDisplay from "./imageDisplay";
+import toast, { Toaster } from 'react-hot-toast';
+
+const notifyPostSuccess = () => toast.success('New post created!');
 
 interface FeedProps {
   onPosted: () => void;
@@ -46,6 +44,7 @@ const PostForm: React.FC<FeedProps> = ({
         form.reset();
         adjustTextareaSize();
         console.log(response);
+        notifyPostSuccess();
     })
     .catch((error) => console.log(error))
     .finally(() => {
