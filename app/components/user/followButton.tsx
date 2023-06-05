@@ -18,13 +18,14 @@ interface FollowButtonProps {
   }) => {
 
     const notifyFollowSuccess = () => toast.success(`You are now following ${following?.name}`);
+    
+    const notifyUnfollowSuccess = () => toast.success(`You no longer follow ${following?.name}`);
 
     const follow = () => {
       axios.post(`/api/follow`, {
         userID: following?.id
       })
       .then((response) => {
-          console.log(response);
           notifyFollowSuccess();
       })
       .catch((error) => console.log(error))
@@ -32,12 +33,28 @@ interface FollowButtonProps {
       })
     }
 
+    const unfollow = () => {
+      axios.delete(`/api/follow/${following?.id}`)
+      .then((response) => {
+          notifyUnfollowSuccess();
+      })
+      .catch((error) => console.log(error))
+      .finally(() => {
+      })
+    }
+
   return (
-    <Button className="flex w-full" onClick={follow}>
-      {(relationship === 'Following' || relationship === 'MutalFollow') && "Following"}
-      {relationship === 'NoFollow' && "Follow"}
-      {relationship === 'Followed' && "Follow back"}
-    </Button>
+    <>
+      {(relationship === 'Following' || relationship === 'MutalFollow') &&
+      <Button className="flex w-full" onClick={unfollow}>
+        Following
+      </Button>}
+      {(relationship === 'NoFollow' || relationship === 'Followed') && <Button className="flex w-full" onClick={follow}>
+        {relationship === 'NoFollow' && "Follow"}
+        {relationship === 'Followed' && "Follow back"}
+      </Button>}
+    </>
+    
   )
 }
 
