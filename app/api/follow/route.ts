@@ -13,7 +13,7 @@ export async function POST(
         userID
       } = reqbody;
 
-      const alreadyFollowing: Relationship | undefined = await getRelationship(currentUser?.id!, userID);
+      const alreadyFollowing: Relationship | undefined = await getRelationship(currentUser?.id, userID);
   
       if (alreadyFollowing === 'Following' || alreadyFollowing === 'MutalFollow') {
         return new NextResponse('Already Following', { status: 400 });
