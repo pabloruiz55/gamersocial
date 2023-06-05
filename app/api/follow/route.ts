@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
 import getCurrentUser from "@/app/actions/getCurrentUser";
+import getRelationship, {Relationship} from "@/app/actions/getFollowRelationship";
 
 export async function POST(
     request: Request,
@@ -11,6 +12,12 @@ export async function POST(
       const {
         userID
       } = reqbody;
+
+      const alreadyFollowing: Relationship | undefined = await getRelationship(currentUser?.id!, userID);
+  
+      if (alreadyFollowing === 'Following' || alreadyFollowing === 'MutalFollow') {
+        return new NextResponse('Already Following', { status: 400 });
+      }
   
       const follow = await prisma.follow.create({
         data: {

@@ -3,14 +3,20 @@ import { Button } from "@/components/ui/button";
 import { User } from "@prisma/client";
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { Relationship } from "@/app/actions/getFollowRelationship";
 
 interface FollowButtonProps {
-    following: User | null
+    follower: User | null,
+    following: User | null,
+    relationship: Relationship | null | undefined
   }
   
   const FollowButton: React.FC<FollowButtonProps> = ({ 
-    following
+    follower,
+    following,
+    relationship
   }) => {
+
     const notifyFollowSuccess = () => toast.success(`You are now following ${following?.name}`);
 
     const follow = () => {
@@ -27,7 +33,11 @@ interface FollowButtonProps {
     }
 
   return (
-    <Button onClick={follow}>Follow</Button>
+    <Button className="flex w-full" onClick={follow}>
+      {(relationship === 'Following' || relationship === 'MutalFollow') && "Following"}
+      {relationship === 'NoFollow' && "Follow"}
+      {relationship === 'Followed' && "Follow back"}
+    </Button>
   )
 }
 
