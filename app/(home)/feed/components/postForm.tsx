@@ -36,7 +36,7 @@ const PostForm: React.FC<FeedProps> = ({
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
 
-    axios.post(`/api/post`, {
+    axios.post(`/api/feed`, {
       body: values.post,
       image: postImageURL
     })

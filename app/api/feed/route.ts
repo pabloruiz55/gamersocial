@@ -31,7 +31,7 @@ export async function POST(
       image
     } = reqbody;
 
-    const newConversation = await prisma.post.create({
+    const newPost = await prisma.post.create({
       data: {
         body: body,
         image: image,
@@ -41,9 +41,7 @@ export async function POST(
       }
     });
 
-    console.log(currentUser);
-
-    return NextResponse.json(newConversation)
+    return NextResponse.json(newPost)
   } catch (error) {
     return new NextResponse('Internal Error', { status: 500 });
   }
