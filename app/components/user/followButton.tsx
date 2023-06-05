@@ -9,21 +9,19 @@ import { AxiosError, AxiosResponse } from "axios";
 
 interface FollowButtonProps {
     follower: User | null,
-    following: User | null
+    following: User | null,
+    relationship: Relationship | null | undefined
   }
   
   const FollowButton: React.FC<FollowButtonProps> = ({ 
     follower,
-    following
+    following,
+    relationship
   }) => {
     const notifyFollowSuccess = () => toast.success(`You are now following ${following?.name}`);
     const notifyUnfollowSuccess = () => toast.success(`You no longer follow ${following?.name}`);
 
-    const [relationshipState, setRelationshipState] = useState<Relationship>('NoFollow');
-  
-    useEffect(() =>{
-      getRelationship();
-    },[]);
+    const [relationshipState, setRelationshipState] = useState(relationship);
   
     const getRelationship = () => {
       axios.get(`/api/follow/${following?.id}`)
