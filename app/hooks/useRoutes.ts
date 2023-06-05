@@ -17,8 +17,8 @@ const useRoutes = () => {
       },
     { 
       key: 2,
-      label: 'Feed', 
-      href: '/home', 
+      label: 'Home', 
+      href: '/', 
       icon: HiChat,
       active: pathname === '/'
     },

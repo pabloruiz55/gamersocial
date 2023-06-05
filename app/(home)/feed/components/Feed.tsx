@@ -1,7 +1,7 @@
 'use client';
 
 import { AxiosError, AxiosResponse } from "axios";
-import FeedItem from "./feedItem"
+import FeedItem from "../../../components/feed/feedItem"
 import PostForm from "./postForm"
 import { useEffect, useState } from "react"
 const axios = require('axios');
@@ -14,7 +14,7 @@ const Feed = () => {
   },[]);
 
   const getPosts = () => {
-    axios.get('/api/post')
+    axios.get('/api/feed')
       .then((response: AxiosResponse) => {
         setPosts(response.data)
       })

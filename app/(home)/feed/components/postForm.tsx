@@ -17,8 +17,8 @@ import {
 } from "@/components/ui/form"
 import { Icons } from "@/components/icons";
 import { CldUploadButton } from "next-cloudinary";
-import ImageDisplay from "./imageDisplay";
-import toast, { Toaster } from 'react-hot-toast';
+import ImageDisplay from "../../../components/feed/imageDisplay";
+import toast from 'react-hot-toast';
 
 const notifyPostSuccess = () => toast.success('New post created!');
 
