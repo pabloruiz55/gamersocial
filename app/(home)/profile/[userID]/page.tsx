@@ -3,16 +3,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ProfileFeed from "./components/profileFeed";
 import FollowButton from "@/app/components/user/followButton";
 import getUserProfile from "@/app/actions/getUserProfile";
-import getCurrentUser from "@/app/actions/getCurrentUser";
-import getRelationship from "@/app/actions/getFollowRelationship";
-
 
 interface IParams {
   userID: string;
 }
 
 export default async function ProfilePage({ params }: { params: IParams }) {
-  const currentUser = await getCurrentUser();
   const userProfile = await getUserProfile(params.userID);
 
   return (

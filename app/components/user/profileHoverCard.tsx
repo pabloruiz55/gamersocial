@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from 'next/link';
 import { useUser } from "@/app/hooks/useUser";
+import { useFollowers } from "@/app/hooks/useFollowers";
 import FollowButton from "./followButton";
 
 interface ProfileHoverCardProps {
@@ -10,20 +11,38 @@ interface ProfileHoverCardProps {
 const ProfileHoverCard: React.FC<ProfileHoverCardProps> = ({ 
   userID
 }) => {
-  const { user: user, isLoading: isLoadingUser , isError: isErrorUser } = useUser(userID);
+  const { user } = useUser(userID);
+  const { followers, following, mutate } = useFollowers(userID);
+
+  const onChangeFollow = () => {
+    mutate();
+  }
+
   return (
-    <div>
-      <div>
-        <div>
+    <div className="flex flex-col">
+      <div className="flex justify-between items-start w-full">
+        <div className="flex">
           <Link href={`/profile/${user?.id}`}>
-            <Avatar className='w-10 h-10'>
+            <Avatar className='w-14 h-14'>
               <AvatarImage src={user?.image!} />
               <AvatarFallback>{user?.email!.charAt(0).toUpperCase()}</AvatarFallback>
             </Avatar>
           </Link>
         </div>
-        <div>
-          <FollowButton following={user} />
+        <div className="flex">
+          <FollowButton following={user} onChangeFollow={onChangeFollow} />
+        </div>
+      </div>
+      <div className="mt-2">
+        <Link href={`/profile/${user?.id}`}>
+          <p className="text-lg font-bold hover:underline text-white">{user?.name}</p>
+        </Link>
+        <Link href={`/profile/${user?.id}`}>
+          <p className="text-sm">{user?.id}</p>
+        </Link>
+        <div className="flex w-full justify-start gap-4 mt-4 mb-4">
+          <Link href={`/profile/${user?.id}`}><p className="text-sm hover:underline"><b className="font-bold text-white">{following}</b> Following</p></Link>
+          <Link href={`/profile/${user?.id}`}><p className="text-sm hover:underline"><b className="font-bold text-white">{followers}</b> Followers</p></Link>
         </div>
       </div>
     </div>

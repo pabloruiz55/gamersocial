@@ -11,13 +11,14 @@ const fetcher = async (url: string) => {
     });
 };
 
-export const useRelationship = (userID: string) => {
-  const { data, error, isLoading, mutate } = useSWR(`/api/follow/${userID}`,
+export const useFollowers = (userID: string) => {
+  const { data, error, isLoading, mutate } = useSWR(`/api/profile/${userID}/followers`,
     fetcher
   );
 
   return {
-    relationship: data,
+    followers: data?.followers,
+    following: data?.following,
     isLoading,
     isError: error,
     mutate

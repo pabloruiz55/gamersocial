@@ -30,7 +30,7 @@ const FeedItem: React.FC<FeedItemProps> = ({
               </Avatar>
             </Link>
           </HoverCardTrigger>
-          <HoverCardContent>
+          <HoverCardContent className="w-72">
             <ProfileHoverCard userID={data.user.id} />
           </HoverCardContent>
         </HoverCard>
@@ -40,10 +40,10 @@ const FeedItem: React.FC<FeedItemProps> = ({
           <HoverCard>
             <HoverCardTrigger>
               <Link className='hover:underline' href={`/profile/${data.user.id}`}>
-                <p className="text-sm font-bold	">{data?.user.name}</p>
+                <p className="text-sm font-bold">{data?.user.name}</p>
               </Link>
             </HoverCardTrigger>
-            <HoverCardContent>
+            <HoverCardContent className="w-72">
               <ProfileHoverCard userID={data.user.id} />
             </HoverCardContent>
           </HoverCard>

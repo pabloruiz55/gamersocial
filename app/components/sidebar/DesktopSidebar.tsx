@@ -33,9 +33,11 @@ const DesktopSidebar: React.FC<DesktopSiderbarProps> = (
                         flex
                         flex-col
                         justify-between
-                        lg:w-40
+                        xl:w-40
                         w-auto
                         fixed
+                        pr-2
+                        xl:pr-0
                     "
                 >
                     <ul

@@ -7,11 +7,13 @@ import { Relationship } from "@/app/actions/getFollowRelationship";
 import { useRelationship } from "@/app/hooks/useRelationship";
 
 interface FollowButtonProps {
-    following: User | null
+    following: User | null,
+    onChangeFollow?: () => void
   }
   
   const FollowButton: React.FC<FollowButtonProps> = ({ 
-    following
+    following,
+    onChangeFollow
   }) => {
     
     const { relationship, isLoading , isError, mutate } = useRelationship(following?.id!);
@@ -19,6 +21,7 @@ interface FollowButtonProps {
     const notifyUnfollowSuccess = () => toast.success(`You no longer follow ${following?.name}`);
   
     const onFollow = async() => {
+      if(onChangeFollow) onChangeFollow();
       await mutate();
     }
 
@@ -52,17 +55,20 @@ interface FollowButtonProps {
     <>
       {(relationship === 'Following' || relationship === 'MutalFollow') &&
       <div className="group">
-        <Button className="group-hover:hidden flex w-36" onClick={follow}>
+        <Button className="group-hover:hidden flex rounded-full pl-4 pr-4 w-24" onClick={follow}>
           Following
         </Button>
-        <Button className="hidden group-hover:flex w-36 bg-transparent outline-1 outline-red-500 outline" variant={"destructive"} onClick={follow}>
+        <Button className="hidden group-hover:flex  bg-transparent outline-1 outline-red-500 outline rounded-full pl-4 pr-4 w-24" variant={"destructive"} onClick={follow}>
           Unfollow
         </Button>
       </div>
       }
-      {(relationship === 'NoFollow' || relationship === 'Followed') && <Button className="flex w-36" onClick={follow}>
+      {(relationship === 'NoFollow' || relationship === 'Followed') && <Button className="flex rounded-full pl-4 pr-4 w-24"  onClick={follow}>
         {relationship === 'NoFollow' && "Follow"}
-        {relationship === 'Followed' && "Follow back"}
+        {relationship === 'Followed' && "Follow"}
+      </Button>}
+      {(isLoading) && <Button className="flex rounded-full pl-4 pr-4 w-24"  onClick={follow}>
+        Follow
       </Button>}
     </>
     
