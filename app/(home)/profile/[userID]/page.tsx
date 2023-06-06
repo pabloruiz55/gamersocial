@@ -1,8 +1,8 @@
-import getUserProfile from "@/app/actions/getUserProfile";
 import { Icons } from "@/components/icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ProfileFeed from "./components/profileFeed";
 import FollowButton from "@/app/components/user/followButton";
+import getUserProfile from "@/app/actions/getUserProfile";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import getRelationship from "@/app/actions/getFollowRelationship";
 
@@ -14,7 +14,6 @@ interface IParams {
 export default async function ProfilePage({ params }: { params: IParams }) {
   const currentUser = await getCurrentUser();
   const userProfile = await getUserProfile(params.userID);
-  const relationship = await getRelationship(currentUser?.id, userProfile?.id);
 
   return (
     <>
@@ -32,7 +31,7 @@ export default async function ProfilePage({ params }: { params: IParams }) {
               </div>
             </div>
             <div className="flex w-auto items-center">
-              <FollowButton follower={currentUser} following={userProfile} relationship={relationship} />
+              <FollowButton following={userProfile} />
             </div>
           </div>
           <div className="flex flex-col w-full p-4">

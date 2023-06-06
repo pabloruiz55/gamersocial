@@ -11,7 +11,6 @@ interface ProfileProp {
 
 const ProfileFeed = ({userID}: ProfileProp) => {
   const [posts, setPosts] = useState([]);
-  console.log(userID)
   useEffect(() =>{
     getPosts();
   },[]);
