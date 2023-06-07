@@ -3,35 +3,28 @@
 import { AxiosError, AxiosResponse } from "axios";
 import FeedItem from "@/app/components/feed/feedItem";
 import { useEffect, useState } from "react"
+import { useFeed } from "@/app/hooks/useFeed";
+import { FullPostType } from "@/types";
 const axios = require('axios');
 
-interface ProfileProp {
-    userID: string | undefined
+interface FeedProps {
+  userID: string | undefined;
 }
 
-const ProfileFeed = ({userID}: ProfileProp) => {
-  const [posts, setPosts] = useState([]);
-  useEffect(() =>{
-    getPosts();
-  },[]);
+const ProfileFeed: React.FC<FeedProps> = ({ 
+  userID 
+}) => {
+  const {posts, isLoading, isError, mutate } = useFeed(userID!);
 
-  const getPosts = () => {
-    axios.get(`/api/feed/${userID}`
-    )
-      .then((response: AxiosResponse) => {
-        setPosts(response.data)
-      })
-      .catch((error: AxiosError) => {
-        console.log(error);
-      })
-      .finally(() => {});
+  const onPosted = () => {
+    mutate();
   }
 
   return (
     <div className="flex flex-col w-full mt-4">
-      {posts?.map((post, i) => (
+      {posts?.map((post:FullPostType) => (
         <FeedItem
-          key={i}
+          key={post.id}
           data={post} 
         />
       ))}

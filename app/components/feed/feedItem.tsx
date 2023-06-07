@@ -22,7 +22,7 @@ const FeedItem: React.FC<FeedItemProps> = ({
     <div className="flex w-full border-t p-2 pl-4 pr-4">
       <div className="flex w-14">
         <HoverCard>
-          <HoverCardTrigger>
+          <HoverCardTrigger asChild>
             <Link href={`/profile/${data.user.id}`}>
               <Avatar className='w-10 h-10'>
                 <AvatarImage src={data?.user.image!} />
@@ -31,20 +31,20 @@ const FeedItem: React.FC<FeedItemProps> = ({
             </Link>
           </HoverCardTrigger>
           <HoverCardContent className="w-72">
-            <ProfileHoverCard userID={data.user.id} />
+            <ProfileHoverCard user={data.user} />
           </HoverCardContent>
         </HoverCard>
       </div>
       <div className="flex flex-col w-full align-top">
         <div className='flex w-full gap-2'>
           <HoverCard>
-            <HoverCardTrigger>
+            <HoverCardTrigger asChild>
               <Link className='hover:underline' href={`/profile/${data.user.id}`}>
                 <p className="text-sm font-bold">{data?.user.name}</p>
               </Link>
             </HoverCardTrigger>
             <HoverCardContent className="w-72">
-              <ProfileHoverCard userID={data.user.id} />
+              <ProfileHoverCard user={data.user} />
             </HoverCardContent>
           </HoverCard>
           <p className="text-sm text-slate-500">{formatDistanceToNow(new Date(data?.createdAt),{addSuffix: true})}</p>

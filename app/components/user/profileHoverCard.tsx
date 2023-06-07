@@ -3,19 +3,24 @@ import Link from 'next/link';
 import { useUser } from "@/app/hooks/useUser";
 import { useFollowers } from "@/app/hooks/useFollowers";
 import FollowButton from "./followButton";
+import { UserFull } from "@/types";
+import { useState } from "react";
 
 interface ProfileHoverCardProps {
-  userID: string
+  user: UserFull
 }
 
 const ProfileHoverCard: React.FC<ProfileHoverCardProps> = ({ 
-  userID
+  user
 }) => {
-  const { user } = useUser(userID);
-  const { followers, following, mutate } = useFollowers(userID);
+  const [isFollowed, setIsFollowed] = useState( user.isFollowed);
+  const [followers, setFollowers] = useState(user._count.followers);
 
-  const onChangeFollow = () => {
-    mutate();
+  const onChangeFollow = (newFollow: number) => {
+    setIsFollowed(!isFollowed);
+    setFollowers(followers+newFollow);
+    user._count.followers = followers+newFollow;
+    user.isFollowed = !isFollowed;
   }
 
   return (
@@ -30,7 +35,7 @@ const ProfileHoverCard: React.FC<ProfileHoverCardProps> = ({
           </Link>
         </div>
         <div className="flex">
-          <FollowButton following={user} onChangeFollow={onChangeFollow} />
+          <FollowButton user={user} isFollowed={isFollowed} onChangeFollow={onChangeFollow} />
         </div>
       </div>
       <div className="mt-2">
@@ -41,7 +46,7 @@ const ProfileHoverCard: React.FC<ProfileHoverCardProps> = ({
           <p className="text-sm">{user?.id}</p>
         </Link>
         <div className="flex w-full justify-start gap-4 mt-4 mb-4">
-          <Link href={`/profile/${user?.id}`}><p className="text-sm hover:underline"><b className="font-bold text-white">{following}</b> Following</p></Link>
+          <Link href={`/profile/${user?.id}`}><p className="text-sm hover:underline"><b className="font-bold text-white">{user?._count.following}</b> Following</p></Link>
           <Link href={`/profile/${user?.id}`}><p className="text-sm hover:underline"><b className="font-bold text-white">{followers}</b> Followers</p></Link>
         </div>
       </div>
