@@ -3,6 +3,8 @@ import prisma from "@/app/libs/prismadb";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { UserFull } from "@/types";
 
+import { Prisma } from '@prisma/client'
+
 async function getPosts(userID: string | null){
   if(!userID){
     return await prisma.post.findMany({
@@ -62,8 +64,8 @@ export async function GET(
     });
 
     allPosts.forEach((post) => {
-      post.user.isFollowed = following.some(e => e.followingId === post.userId) //TODO: see how to do the casting to UserFull
-      post.user.isFollowingYou = followers.some(e => e.followerId === post.userId) //TODO: see how to do the casting to UserFull
+      (<UserFull>post.user).isFollowed = following.some(e => e.followingId === post.userId);
+      (<UserFull>post.user).isFollowingYou = followers.some(e => e.followerId === post.userId);
     });
 
     return NextResponse.json(allPosts)
