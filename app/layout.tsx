@@ -9,6 +9,7 @@ import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
 import AuthContext from '@/app/context/AuthContext'
 import { Toaster } from 'react-hot-toast';
+import useSWR, { SWRConfig } from 'swr'
 
 export const metadata: Metadata = {
   title: {

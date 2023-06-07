@@ -16,7 +16,7 @@ export default async function ProfilePage({ params }: { params: IParams }) {
     <>
       <div className="flex flex-col w-full border-r">
         <div className="flex flex-col w-full">
-          <ProfileNavBar user={userProfile} />
+          <ProfileNavBar user={userProfile!} />
           <div className="flex flex-col w-full p-4">
             <Avatar className="w-32 h-32">
               <AvatarImage src={userProfile?.image!} />

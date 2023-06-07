@@ -31,7 +31,7 @@ const FeedItem: React.FC<FeedItemProps> = ({
             </Link>
           </HoverCardTrigger>
           <HoverCardContent className="w-72">
-            <ProfileHoverCard user={data.user} />
+            <ProfileHoverCard userID={data.user.id} />
           </HoverCardContent>
         </HoverCard>
       </div>
@@ -44,7 +44,7 @@ const FeedItem: React.FC<FeedItemProps> = ({
               </Link>
             </HoverCardTrigger>
             <HoverCardContent className="w-72">
-              <ProfileHoverCard user={data.user} />
+              <ProfileHoverCard userID={data.user.id} />
             </HoverCardContent>
           </HoverCard>
           <p className="text-sm text-slate-500">{formatDistanceToNow(new Date(data?.createdAt),{addSuffix: true})}</p>

@@ -16,7 +16,7 @@ const getUserProfile = async (id: string) => {
           },
         }
       }
-    });
+    }) as UserFull;
 
     const currentUser = await getCurrentUser();
     const following = await prisma.follow.findMany({
@@ -31,14 +31,14 @@ const getUserProfile = async (id: string) => {
       }
     });
 
-    user.isFollowed = following.some(e => e.followingId === id) //TODO: see how to do the casting to UserFull
-    user.isFollowingYou = followers.some(e => e.followerId === id) //TODO: see how to do the casting to UserFull
+    user.isFollowed = following.some(e => e.followingId === id)
+    user.isFollowingYou = followers.some(e => e.followerId === id)
 
     if (!user) {
       return null;
     }
 
-    return user as UserFull;
+    return user;
   } catch (error: any) {
     return null;
   }

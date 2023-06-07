@@ -11,17 +11,6 @@ interface ProfileNavBarProps {
 const ProfileNavBar: React.FC<ProfileNavBarProps> = ({ 
   user
 }) => {
-  console.log(user);
-  const [isFollowed, setIsFollowed] = useState( user.isFollowed);
-  const [followers, setFollowers] = useState(user._count.followers);
-
-  const onChangeFollow = (newFollow: number) => {
-    setIsFollowed(!isFollowed);
-    setFollowers(followers+newFollow);
-    user._count.followers = followers+newFollow;
-    user.isFollowed = !isFollowed;
-  }
-
   return (
     <div className="flex w-full justify-between border-b p-4">
       <div className="flex items-center gap-6">
@@ -35,7 +24,7 @@ const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
         </div>
       </div>
       <div className="flex w-auto items-center">
-        <FollowButton user={user} isFollowed={isFollowed} onChangeFollow={onChangeFollow} />
+        <FollowButton userID={user.id} />
       </div>
     </div>
   )

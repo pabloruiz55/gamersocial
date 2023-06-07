@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import useSWR from "swr";
+import { UserFull } from "@/types";
 
 const fetcher = async (url: string) => {
   return await axios
@@ -12,13 +13,14 @@ const fetcher = async (url: string) => {
 };
 
 export const useUser = (userID: string) => {
-  const { data, error, isLoading } = useSWR(`/api/profile/${userID}`,
+  const { data, error, isLoading, mutate } = useSWR(`/api/profile/${userID}`,
     fetcher
   );
 
   return {
-    user: data,
+    user: data as UserFull,
     isLoading,
-    isError: error
+    isError: error,
+    mutate
   };
 };

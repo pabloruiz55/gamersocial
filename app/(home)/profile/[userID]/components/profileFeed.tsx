@@ -14,11 +14,7 @@ interface FeedProps {
 const ProfileFeed: React.FC<FeedProps> = ({ 
   userID 
 }) => {
-  const {posts, isLoading, isError, mutate } = useFeed(userID!);
-
-  const onPosted = () => {
-    mutate();
-  }
+  const {posts} = useFeed(userID!);
 
   return (
     <div className="flex flex-col w-full mt-4">

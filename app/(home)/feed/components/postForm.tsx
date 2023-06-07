@@ -19,16 +19,12 @@ import { Icons } from "@/components/icons";
 import { CldUploadButton } from "next-cloudinary";
 import ImageDisplay from "../../../components/feed/imageDisplay";
 import toast from 'react-hot-toast';
+import { useSWRConfig } from "swr";
 
 const notifyPostSuccess = () => toast.success('New post created!');
 
-interface FeedProps {
-  onPosted: () => void;
-}
-
-const PostForm: React.FC<FeedProps> = ({ 
-  onPosted 
-}) => {
+const PostForm: React.FC = ({}) => {
+  const { mutate } = useSWRConfig()
   const postTextareaRef = useRef<HTMLTextAreaElement>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [postImageURL, setPostImageURL] = useState("");
@@ -43,13 +39,12 @@ const PostForm: React.FC<FeedProps> = ({
     .then((response) => {
         form.reset();
         adjustTextareaSize();
-        console.log(response);
         notifyPostSuccess();
     })
     .catch((error) => console.log(error))
     .finally(() => {
       setIsLoading(false)
-      onPosted();
+      mutate(['/api/feed', ""])
       setPostImageURL("");
     })
   }

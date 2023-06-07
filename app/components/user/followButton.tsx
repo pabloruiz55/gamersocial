@@ -1,39 +1,32 @@
 'use client';
+import { useUser } from "@/app/hooks/useUser";
 import { Button } from "@/components/ui/button";
 import { UserFull } from "@/types";
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { Relationship } from "@/app/actions/getFollowRelationship";
-import { useRelationship } from "@/app/hooks/useRelationship";
 
 interface FollowButtonProps {
-    user: UserFull | null,
-    isFollowed: boolean
-    onChangeFollow?: (newFollow: number) => void
+    userID: string | null
   }
-  
+
   const FollowButton: React.FC<FollowButtonProps> = ({ 
-    user,
-    isFollowed,
-    onChangeFollow
+    userID
   }) => {
-    
-    //const { relationship, isLoading , isError, mutate } = useRelationship(user?.id!);
+    const { user, mutate } = useUser(userID!);
     const notifyFollowSuccess = () => toast.success(`You are now following ${user?.name}`);
     const notifyUnfollowSuccess = () => toast.success(`You no longer follow ${user?.name}`);
   
-    const onFollow = async(newFollow: number) => {
-      if(onChangeFollow) onChangeFollow(newFollow);
-      //await mutate();
+    const onFollow = async() => {
+      await mutate()
     }
 
     const follow = () => {
-      if(isFollowed)
+      if(user.isFollowed)
       {
         axios.delete(`/api/follow/${user?.id}`)
         .then(async(response) => {
             notifyUnfollowSuccess();
-            await onFollow(-1);
+            await onFollow();
         })
         .catch((error) => console.log(error))
         .finally(() => {
@@ -44,7 +37,7 @@ interface FollowButtonProps {
         })
         .then(async(response) => {
             notifyFollowSuccess();
-            await onFollow(1);
+            await onFollow();
         })
         .catch((error) => console.log(error))
         .finally(() => {
@@ -55,7 +48,7 @@ interface FollowButtonProps {
 
   return (
     <>
-      {isFollowed &&
+      {user?.isFollowed &&
       <div className="group">
         <Button className="group-hover:hidden flex rounded-full pl-4 pr-4 w-24" onClick={follow}>
           Following
@@ -65,7 +58,7 @@ interface FollowButtonProps {
         </Button>
       </div>
       }
-      {!isFollowed && <Button className="flex rounded-full pl-4 pr-4 w-24"  onClick={follow}>
+      {!user?.isFollowed && <Button className="flex rounded-full pl-4 pr-4 w-24"  onClick={follow}>
         Follow
       </Button>}
     </>
