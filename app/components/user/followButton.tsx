@@ -6,22 +6,22 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 interface FollowButtonProps {
-    userID: string | null
+    userData: UserFull | null
   }
 
   const FollowButton: React.FC<FollowButtonProps> = ({ 
-    userID
+    userData
   }) => {
-    const { user, mutate } = useUser(userID!);
-    const notifyFollowSuccess = () => toast.success(`You are now following ${user?.name}`);
-    const notifyUnfollowSuccess = () => toast.success(`You no longer follow ${user?.name}`);
+    const { user, mutate } = useUser(userData?.id!);
+    const notifyFollowSuccess = () => toast.success(`You are now following ${userData?.name}`);
+    const notifyUnfollowSuccess = () => toast.success(`You no longer follow ${userData?.name}`);
   
     const onFollow = async() => {
       await mutate()
     }
 
     const follow = () => {
-      if(user.isFollowed)
+      if(user?.isFollowed)
       {
         axios.delete(`/api/follow/${user?.id}`)
         .then(async(response) => {

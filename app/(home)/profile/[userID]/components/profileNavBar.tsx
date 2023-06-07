@@ -24,7 +24,7 @@ const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
         </div>
       </div>
       <div className="flex w-auto items-center">
-        <FollowButton userID={user.id} />
+        <FollowButton userData={user} />
       </div>
     </div>
   )
