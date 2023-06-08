@@ -1,8 +1,11 @@
+'use client'
 import React from 'react'
 import Image from "next/image"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
 import { Button } from "@/components/ui/button"
 import { Icons } from "@/components/icons";
+import { useState } from 'react'
+import ImageModal from '../modals/imageModal'
 
 interface ImageDisplayProps {
     imageUrl: string | null,
@@ -15,6 +18,9 @@ interface ImageDisplayProps {
     editMode,
     deletePostImage
   }) => {
+
+  const [imageModalOpen, setImageModalOpen] = useState(false);
+
   return (
     <>
     {imageUrl && imageUrl.length > 0 &&
@@ -24,6 +30,7 @@ interface ImageDisplayProps {
             src={imageUrl}
             alt="Attached image"
             className="flex rounded-lg object-cover w-full h-full border"
+            onClick={() => setImageModalOpen(true)}
             height={1024}
             width={768}
             />
@@ -37,6 +44,7 @@ interface ImageDisplayProps {
         }
       </div>
     }
+    <ImageModal src={imageUrl} isOpen={imageModalOpen} onClose={() => setImageModalOpen(false)} />  
     </>
   )
 }

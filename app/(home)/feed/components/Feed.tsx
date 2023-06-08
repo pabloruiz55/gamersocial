@@ -13,7 +13,7 @@ const Feed = () => {
 
   return (
     <>
-      <div className="flex flex-col w-full border-r">
+      <div className="flex flex-col w-full min-h-screen border-r">
         <div className="flex flex-col w-full">
           <h1 className="flex w-full text-2xl font-extrabold leading-tight tracking-tighter sm:text-2xl md:text-2xl lg:text-2xl p-2 pl-4">Feed</h1>
             <PostForm />

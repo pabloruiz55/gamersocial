@@ -10,6 +10,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
 import ProfileHoverCard from '../user/profileHoverCard';
+import LikeButton from './LikeButton';
 
 interface FeedItemProps {
   data: FullPostType;
@@ -44,6 +45,7 @@ const FeedItem: React.FC<FeedItemProps> = ({
             <p className="text-sm">{data?.body}</p>
           </div>
           <ImageDisplay imageUrl={data.image} editMode={false} />
+          <LikeButton postID={data.id} />
         </div>
       </div>
       <HoverCardContent className="w-72">

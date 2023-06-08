@@ -17,7 +17,7 @@ const ProfileFeed: React.FC<FeedProps> = ({
   const {posts} = useFeed(userID!);
 
   return (
-    <div className="flex flex-col w-full mt-4">
+    <div className="flex flex-col w-full">
       {posts?.map((post:FullPostType) => (
         <FeedItem
           key={post.id}

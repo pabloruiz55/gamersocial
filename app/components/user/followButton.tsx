@@ -6,10 +6,10 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 interface FollowButtonProps {
-    userData: UserFull | null
-  }
+  userData: UserFull | null
+}
 
-  const FollowButton: React.FC<FollowButtonProps> = ({ 
+const FollowButton: React.FC<FollowButtonProps> = ({ 
     userData
   }) => {
     const { user, mutate } = useUser(userData?.id!);
@@ -43,7 +43,6 @@ interface FollowButtonProps {
         .finally(() => {
         })
       }
-      
     }
 
   return (

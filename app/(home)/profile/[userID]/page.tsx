@@ -14,7 +14,8 @@ export default async function ProfilePage({ params }: { params: IParams }) {
   const userProfile = await getUserProfile(params.userID);
   return (
     <>
-      <div className="flex flex-col w-full border-r">
+      {userProfile &&
+      <div className="flex flex-col w-full min-h-screen border-r">
         <div className="flex flex-col w-full">
           <ProfileNavBar user={userProfile!} />
           <div className="flex flex-col w-full p-4">
@@ -22,10 +23,19 @@ export default async function ProfilePage({ params }: { params: IParams }) {
               <AvatarImage src={userProfile?.image!} />
               <AvatarFallback>{userProfile?.email!.charAt(0).toUpperCase()}</AvatarFallback>
             </Avatar>
-            <ProfileFeed userID={userProfile?.id} />
           </div>
+          <ProfileFeed userID={userProfile?.id} />
         </div>
       </div>
+      }
+      {!userProfile &&
+      <div className="flex flex-col w-full border-r">
+        <div className="flex flex-col w-full">
+          <ProfileNavBar user={userProfile!} />
+          <p>This user doesn't</p>
+        </div>
+      </div>
+      }
     </>
   )
 }
