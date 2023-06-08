@@ -32,7 +32,7 @@ export default async function ProfilePage({ params }: { params: IParams }) {
       <div className="flex flex-col w-full border-r">
         <div className="flex flex-col w-full">
           <ProfileNavBar user={userProfile!} />
-          <p>This user doesn't</p>
+          <p>This user does not exist.</p>
         </div>
       </div>
       }
